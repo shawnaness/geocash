@@ -9,9 +9,12 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
+    "dotenv": "^6.0.0",
     "meteor-node-stubs": "^0.4.1",
+    "npm": "^6.4.1",
     "react": "^16.5.1",
-    "react-dom": "^16.5.1"
+    "react-dom": "^16.5.1",
+    "react-plaid-link": "^1.0.2"
   },
   "meteor": {
     "mainModule": {
