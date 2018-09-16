@@ -28,51 +28,25 @@ var PUBLIC_TOKEN = null;
 // Defining app on express framework
 var app = express();
 
-
-/*
- * Method to get the transactions from a given client 
- * @param auth_token - the authorization token for a user
- */
-// function getTransactions(access_token) {
-//   //full Node.js request to Plaid api
-//   app.get('/get_transactions', function(request, response, next) {
-//     // Setting dates for transactions in last 100 days
-//     var startDate = moment().subtract(100,
-//       'days').format('YYYY-MM-DD');
-//     var endDate = moment().format('YYYY-MM-DD');
-
-//     //calling transactions
-//     client.getTransactions(ACCESS_TOKEN,
-//       startDate,
-//       endDate, {
-//         count: 250,
-//         offset: 0
-//       },
-//       function(error, transactionsResponse) {
-//         //if failed to get transaction
-//         if (error != null) {
-//           process.stdout.write("error met in getting transaction")
-//           console.log(JSON.stringify(error));
-//           return response.json({
-//             error: error
-//           });
-//         }
-//         console.log('pulled ' + transactionsResponse.transactions.length +
-//           ' transactions');
-//         process.stdout.write(transactionsResponse);
-//         response.json(transactionsResponse);
-//       });
-//   });
-// };
-
 Meteor.startup(() => {
   // code to run on server at startup
 
-  app.get('/get_transactions', function(request, response, next) {
+  app.post('/get_transactions', function(request, response) {
     // Setting dates for transactions in last 100 days
     var startDate = moment().subtract(100,
       'days').format('YYYY-MM-DD');
     var endDate = moment().format('YYYY-MM-DD');
+    //creating Client user 
+    var client = new plaid.Client(
+      PLAID_CLIENT_ID,
+      PLAID_SECRET,
+      PLAID_PUBLIC_KEY,
+      plaid.environments[PLAID_ENV], {
+        version: '2018-05-22'
+      }
+    );
+
+    const ACCESS_TOKEN = request;
 
     //calling transactions
     client.getTransactions(ACCESS_TOKEN,
