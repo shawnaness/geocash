@@ -1,40 +1,17 @@
 import React from 'react';
-import PlaidLink from 'react-plaid-link';
+import { Switch, Route } from 'react-router-dom';
 
-import {
-	NODE_ENV,
-	PUBLIC_KEY,
-} from '../constants.js';
-
-require('dotenv').config();
-
-export default class App extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.onSuccess = this.onSuccess.bind(this);
-	}
-
-	onSuccess(public_token, metadata) {
-		// pass token to server
-		console.log('yay!');
-	}
+import Welcome from './Welcome';
+import MoneyMap from './MoneyMap';
 
 
-	render() {
-		return (
-			<div>
-				<h1>Welcome to GeoCash</h1>
-				<PlaidLink
-				  clientName={"GeoCash"}
-				  env={NODE_ENV}
-				  onSuccess={this.onSuccess}
-				  publicKey={PUBLIC_KEY}
-				  product={['auth', 'transactions']}
-			  	>
-				  Link Account
-				</PlaidLink>
-			</div>
-		);
-	}
-}
+const App = () => (
+  <main>
+    <Switch>
+      <Route exact path='/' component={Welcome}/>
+      <Route path='/map' component={MoneyMap}/>
+    </Switch>
+  </main>
+)
+
+export default App;
