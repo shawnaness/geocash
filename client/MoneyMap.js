@@ -1,5 +1,6 @@
 import React from 'react';
 import { 
+	Circle,
 	withScriptjs, 
 	withGoogleMap,
 	GoogleMap,
@@ -9,12 +10,12 @@ import {
 import { MAPS_API_KEY } from '../constants.js';
 
 const icon = {
-    path: google.maps.SymbolPath.CIRCLE,
+	path: "M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0",
 	fillColor: 'red',
 	fillOpacity: .2,
 	strokeColor: 'white',
 	strokeWeight: .5
-  };
+};
 
 const MapWithAMarker = withScriptjs(withGoogleMap(props =>
   <GoogleMap
@@ -33,7 +34,7 @@ export default class MoneyMap extends React.Component {
 	render() {
 		return (
 			<MapWithAMarker
-				googleMapURL={"https://maps.googleapis.com/maps/api/js?key=" + MAPS_API_KEY}
+				googleMapURL={"https://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize?key=" + MAPS_API_KEY}
 				loadingElement={<div style={{ height: `100%` }} />}
 				containerElement={<div style={{ height: `400px` }} />}
 				mapElement={<div style={{ height: `100%` }} />}

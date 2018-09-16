@@ -15,7 +15,7 @@ const envvar = require('envvar');
 const moment = require('moment');
 const plaid = require('plaid');
 
-const port = 3000
+const port = 3000;
 
 var PLAID_CLIENT_ID = CLIENT_ID;
 var PLAID_SECRET = SECRET;
@@ -25,7 +25,9 @@ var PLAID_ENV = envvar.string('PLAID_ENV', 'sandbox');
 
 // Accept the public_token sent from Link and get Access token
 async function getAccessToken(req, res) {
-	PUBLIC_TOKEN = request.body.public_token;
+	const PUBLIC_TOKEN = req.body.public_token;
+
+	console.log(PUBLIC_TOKEN);
 	//creating client object
 	var client = new plaid.Client(
 		PLAID_CLIENT_ID,
@@ -41,7 +43,7 @@ async function getAccessToken(req, res) {
 		if (error != null) {
 			var msg = 'Could not exchange public_token!';
 			console.log(msg + '\n' + error);
-			return response.json({
+			return res.json({
 				error: msg
 			});
 		}
@@ -72,7 +74,7 @@ async function getTransactions(req, res) {
 	);
 
 	//how to access (update this)
-	const ACCESS_TOKEN = req.body.public_token;
+	const ACCESS_TOKEN = req.body.access_token;
 
 	client.getTransactions(ACCESS_TOKEN,
 		startDate,
@@ -85,7 +87,7 @@ async function getTransactions(req, res) {
 			if (error != null) {
 				process.stdout.write("error met in getting transaction")
 				console.log(JSON.stringify(error));
-				return transactionsResponse.json({
+				return res.json({
 					error: error
 				});
 			}
@@ -98,6 +100,7 @@ async function getTransactions(req, res) {
 //exporting function to main.js
 export function setupApi() {
 	const app = express();
+	app.use(bodyParser.json());
 
 	//when accessing api, call the return transactions method
 	app.post('/getTransactions', getTransactions);
