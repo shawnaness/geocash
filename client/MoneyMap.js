@@ -57,6 +57,22 @@ export default class MoneyMap extends React.Component {
 			case "Touchstone Climbing":
 				return { lat: 37.8508, lng: -122.2949 };
 				break;
+			case "Uber 063015 SF**POOL**":
+				return { lat: 37.7898, lng: -122.3999 };
+				break;
+			case "McDonald's":
+				return { lat: 47.2226, lng: -122.48365};
+				break;
+			case "Starbucks":
+				return { lat: 47.24405, lng: -122.527490};
+				break;
+			case "SparkFun":
+				return { lat: 42.357180, lng: -71.114310};
+				break;
+			case "Uber 072515 SF**POOL**":
+				return { lat: 37.7898, lng: -122.3999 };
+				break;
+
 			default:
 				return { lat: 0, lng: 0 };
 		}
