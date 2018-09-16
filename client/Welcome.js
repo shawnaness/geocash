@@ -28,18 +28,34 @@ export default class Welcome extends React.Component {
 
 
 	render() {
+		const style = {
+			fontFamily: '\'Montserrat\', sans-serif',
+			fontSize: '15pt',
+			margin: '20px',
+			padding: '10px',
+			outline: 'none',
+			background: 'white',
+			border: '2px solid rgb(241, 241, 241)',
+			borderRadius: '20px',
+			boxShadow: '0 7px 7px 0 rgba(0,0,0,0.24), 0 7px 7px 0 rgba(0,0,0,0.19)',
+		};
+
 		return (
         	<div className="jumbotron">
               	<h1 className="jumbotron-text">GeoCash</h1>
+              	<p className="paragraph">Helping you track your money and spending across the globe.</p>
 				<PlaidLink
-				  clientName={"GeoCash"}
-				  env={NODE_ENV}
-				  onSuccess={this.onSuccess}
-				  publicKey={PUBLIC_KEY}
-				  product={['auth', 'transactions']}
+					style={style}
+					className={"plaid-button"}
+					clientName={"GeoCash"}
+					env={NODE_ENV}
+					onSuccess={this.onSuccess}
+					publicKey={PUBLIC_KEY}
+					product={['auth', 'transactions']}
 			  	>
-				  SEE YOUR MAP
+				  see your map
 				</PlaidLink>
+				<img src="/globe.gif" className="globe" height="100px" width="100px" />
 			</div>
 		);
 	}

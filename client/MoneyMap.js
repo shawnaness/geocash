@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import google from 'google';
 import { 
-	Circle,
 	withScriptjs, 
 	withGoogleMap,
 	GoogleMap,
@@ -12,17 +10,18 @@ import {
 import { MarkerClusterer } from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 import { MAPS_API_KEY } from '../constants.js';
+import IndividualMarker from './IndividualMarker';
 
 export default class MoneyMap extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			zoom: 1,
-			center: { lat: 0, lng: 0 },
+			selectedMarker: null,
 		};
 
 		this.getLocation = this.getLocation.bind(this);
+		this.toggleInfoWindow = this.toggleInfoWindow.bind(this);
 	}
 
 	componentDidMount() {
@@ -37,16 +36,20 @@ export default class MoneyMap extends React.Component {
 		});
 	}
 
-	toggleInfoWindow(loc) {
-    	// clicking 'x' in the info window will pass null, so if we detect that, reset the position in state
-    	if (loc == null) {
-      		this.setState({ windowPosition: null })
-      		return
-    	}
-    	// otherwise get coords of clicked marker and set to state
-    	let markerLoc = { lat: loc.latLng.lat(), lng: loc.latLng.lng() }
-    	this.setState({ windowPosition: markerLoc })
-  	}
+	// toggleInfoWindow(loc) {
+ //    	// clicking 'x' in the info window will pass null, so if we detect that, reset the position in state
+ //    	if (loc == null) {
+ //      		this.setState({ windowPosition: null })
+ //      		return
+ //    	}
+ //    	// otherwise get coords of clicked marker and set to state
+ //    	let markerLoc = { lat: loc.latLng.lat(), lng: loc.latLng.lng() }
+ //    	this.setState({ windowPosition: markerLoc })
+ //  	}
+
+ 	toggleInfoWindow(id) {
+ 		this.setState({ selectedMarker: id });
+ 	}
 
 
 	getLocation(name) {
@@ -73,13 +76,13 @@ export default class MoneyMap extends React.Component {
 				return { lat: 37.7898, lng: -122.3999 };
 				break;
 			case "McDonald's":
-				return { lat: 47.2226, lng: -122.48365};
+				return { lat: 47.2226, lng: -122.4836 };
 				break;
 			case "Starbucks":
-				return { lat: 47.24405, lng: -122.527490};
+				return { lat: 47.2440, lng: -122.5274 };
 				break;
 			case "SparkFun":
-				return { lat: 42.357180, lng: -71.114310};
+				return { lat: 42.3571, lng: -71.1143 };
 				break;
 			case "Uber 072515 SF**POOL**":
 				return { lat: 37.7898, lng: -122.3999 };
@@ -94,8 +97,8 @@ export default class MoneyMap extends React.Component {
 		var counter = 0;
 		const MapWithAMarker = withScriptjs(withGoogleMap(props =>
 		  <GoogleMap
-		  	defaultZoom={this.state.zoom}
-		   	defaultCenter={this.state.center}
+		  	defaultZoom={1}
+		   	defaultCenter={{ lat: 0, lng: 0 }}
 		  >
 		  	<MarkerClusterer
 				averageCenter
@@ -103,20 +106,13 @@ export default class MoneyMap extends React.Component {
 				gridSize={60}
 			>
 			    {this.state.transactions ? this.state.transactions.map(transaction => (
-		      		<Marker 
+		      		<IndividualMarker 
 		      			key={transaction.transaction_id}
-		        		position={this.getLocation(transaction.name)}
-		        		//setting pop-up of info window when map clicked
-		        		onClick={this.toggleInfoWindow}
-		      		>
-		      		<div>
-		      		<InfoWindow
-		      			key={transaction.transaction_id + "key"}
-                 		position={this.state.windowPosition}
-                 		onCloseclick={this.toggleInfoWindow}
-					> transaction.name </InfoWindow>
-					</div>
-		      		</Marker>
+		      			transaction={transaction}
+		      			getLocation={this.getLocation}
+		      			toggleInfoWindow={this.toggleInfoWindow}
+		      			selectedMarker={this.state.selectedMarker}
+		      		/>
 	   			)) : null
 				}		
 

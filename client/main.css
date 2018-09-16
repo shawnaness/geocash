@@ -1,42 +1,52 @@
 body {
-  	font-family: 'Monoton', sans-serif;
+  	font-family: 'Montserrat', sans-serif;
 	margin: 0;
-	color: white;
+	color: black;
   	text-align: center;
   	height: 100%;
 }
 
-
-
-button {
-	font-family: 'Rokkitt', sans-serif;
-	border-radius: 12px;
-	font-size: 20pt;
-
+h1 {
+	font-family: 'Monoton', sans-serif;
 }
 
-button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+p {
+	padding: 10px;
 }
 
-button:active {
+/*button .plaid-button {
+	font-family: 'Montserrat', sans-serif;
+	border-radius: 20px !important;
+	font-size: 15pt;
+	margin: 20px;
+	padding: 10px !important;
+}
+
+button .plaid-button:hover {
+    box-shadow: 0 7px 7px 0 rgba(0,0,0,0.24), 0 7px 7px 0 rgba(0,0,0,0.19);
+}
+
+button .plaid-button:active {
   transform: translateY(2px);
-}
+}*/
 
 .jumbotron {
-	background-image: url("/worldMap.jpg");
-	background-color: black;
-	background-size: cover;
-	background-repeat: no-repeat;
-	width: 100%;
-	min-height:100vh;	/*filter: brightness(0.7);*/
+	width: 30%;
+	margin: 2% 35%;
+	border: 2px solid #aaa;
+    box-sizing: border-box;
+    border-radius: 15px;
 }
 
 .jumbotron-text {
-	padding-top: 50vh;
+	padding-top: 10%;
 	font-size: 32pt;
 }
 
-.map {
-	height: 500px;
+.paragraph {
+	padding: 12px;
+}
+
+.globe {
+	padding-bottom: 10%;
 }
