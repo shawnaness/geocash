@@ -1,5 +1,6 @@
 import React from 'react';
 import PlaidLink from 'react-plaid-link';
+import axios from 'axios';
 
 import {
 	NODE_ENV,
@@ -15,14 +16,19 @@ export default class Welcome extends React.Component {
 
 	onSuccess(public_token, metadata) {
 		// pass token to server
-		console.log('yay!');
+		console.log(public_token);
+		axios.post("/get_transactions", { public_token: public_token })
+			.then(res => {
+				console.log(res);
+			})
 	}
 
 
 	render() {
 		return (
 			<div>
-				<h1>Welcome to GeoCash</h1>
+				<img className="jumbotron-image" src="/map.jpg" />
+				<h1 className="jumbotron-text">GeoCash</h1>
 				<PlaidLink
 				  clientName={"GeoCash"}
 				  env={NODE_ENV}
@@ -30,7 +36,7 @@ export default class Welcome extends React.Component {
 				  publicKey={PUBLIC_KEY}
 				  product={['auth', 'transactions']}
 			  	>
-				  Link Account
+				  SEE YOUR MAP
 				</PlaidLink>
 			</div>
 		);
