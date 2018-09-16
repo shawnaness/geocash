@@ -16,16 +16,14 @@ export default class Welcome extends React.Component {
 
 	onSuccess(public_token, metadata) {
 		// pass token to server
-		console.log(public_token);
 		axios.post("/getAccessToken", { public_token: public_token }, {
 			headers: {
-		          'content-type': 'application/json',
-		     },
+		    	'content-type': 'application/json',
+			},
+		}).then(res => {
+			this.props.storeAccessToken(res.data.access_token);
+			this.props.history.push('/map');
 		})
-			.then(res => {
-				this.props.storeAccessToken(res.data.access_token);
-				this.props.history.push('/map');
-			})
 	}
 
 

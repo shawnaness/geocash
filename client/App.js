@@ -17,7 +17,6 @@ export default class App extends React.Component {
 
 	storeAccessToken(token) {
 		this.setState({accessToken: token});
-		console.log(token);
 	}
 
 	render() {

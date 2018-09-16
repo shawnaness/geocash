@@ -50,8 +50,6 @@ async function getAccessToken(req, res) {
 		//if success
 		ACCESS_TOKEN = tokenResponse.access_token;
 		ITEM_ID = tokenResponse.item_id;
-		console.log('Access Token: ' + ACCESS_TOKEN);
-		console.log('Item ID: ' + ITEM_ID);
 		res.json(tokenResponse);
 	});
 }
@@ -76,6 +74,7 @@ async function getTransactions(req, res) {
 	//how to access (update this)
 	const ACCESS_TOKEN = req.body.access_token;
 
+	console.log(ACCESS_TOKEN);
 	client.getTransactions(ACCESS_TOKEN,
 		startDate,
 		endDate, {
@@ -103,8 +102,8 @@ export function setupApi() {
 	app.use(bodyParser.json());
 
 	//when accessing api, call the return transactions method
-	app.post('/getTransactions', getTransactions);
 	app.post('/getAccessToken', getAccessToken);
+	app.post('/getTransactions', getTransactions);
 
 	WebApp.connectHandlers.use(app);
 }
