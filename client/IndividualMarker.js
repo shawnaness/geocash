@@ -8,7 +8,8 @@ import {
 export default class IndividualMarker extends React.Component {
 	render() {
 		const {
-			transaction
+			selectedMarker,
+			transaction,
 		} = this.props;
 
 		return (
@@ -17,13 +18,17 @@ export default class IndividualMarker extends React.Component {
 	    		//setting pop-up of info window when map clicked
 	    		onClick={() => this.props.toggleInfoWindow(transaction.transaction_id)}
 	  		>
-	  		<InfoWindow
-	     		onCloseClick={() => this.props.toggleInfoWindow(null)}
-			> 
-			<div>
-				{ transaction.name }
-			</div>
-			</InfoWindow>
+	  		{selectedMarker == transaction.transaction_id && 
+	  			<InfoWindow
+	     			onCloseClick={() => this.props.toggleInfoWindow(null)}
+				> 
+				<div>
+					<h2>{transaction.name}</h2>
+					<p>${transaction.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</p>
+					<p>{transaction.date}</p>
+				</div>
+				</InfoWindow>
+			}
 	  		</Marker>
   		);
 	}

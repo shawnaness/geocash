@@ -17,6 +17,9 @@ export default class MoneyMap extends React.Component {
 		super(props);
 
 		this.state = {
+			zoom: 1,
+			center: { lat: 0, lng: 0 },
+			mapRef: null,
 			selectedMarker: null,
 		};
 
@@ -31,26 +34,16 @@ export default class MoneyMap extends React.Component {
 		    	'content-type': 'application/json',
 		    },
 		}).then(res => {
-			this.setState({transactions: res.data.transactions});
-			console.log(res.data.transactions);
+			this.setState({transactions: res.data.transactions.splice(0, 15)});
+			console.log(this.state.transactions);
 		});
 	}
 
-	// toggleInfoWindow(loc) {
- //    	// clicking 'x' in the info window will pass null, so if we detect that, reset the position in state
- //    	if (loc == null) {
- //      		this.setState({ windowPosition: null })
- //      		return
- //    	}
- //    	// otherwise get coords of clicked marker and set to state
- //    	let markerLoc = { lat: loc.latLng.lat(), lng: loc.latLng.lng() }
- //    	this.setState({ windowPosition: markerLoc })
- //  	}
-
  	toggleInfoWindow(id) {
- 		this.setState({ selectedMarker: id });
+ 		this.setState({
+ 			selectedMarker: id 
+ 		});
  	}
-
 
 	getLocation(name) {
 		switch(name) {
@@ -94,11 +87,10 @@ export default class MoneyMap extends React.Component {
 	}
 
 	render() {
-		var counter = 0;
 		const MapWithAMarker = withScriptjs(withGoogleMap(props =>
 		  <GoogleMap
-		  	defaultZoom={1}
-		   	defaultCenter={{ lat: 0, lng: 0 }}
+		    defaultZoom={2}
+		   	defaultCenter={this.state.center}
 		  >
 		  	<MarkerClusterer
 				averageCenter
