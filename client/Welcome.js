@@ -31,9 +31,8 @@ export default class Welcome extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<img className="jumbotron-image" src="/map.jpg" />
-				<h1 className="jumbotron-text">GeoCash</h1>
+        	<div className="jumbotron">
+              	<h1 className="jumbotron-text">GeoCash</h1>
 				<PlaidLink
 				  clientName={"GeoCash"}
 				  env={NODE_ENV}

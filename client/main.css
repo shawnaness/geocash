@@ -1,19 +1,42 @@
 body {
   	font-family: 'Monoton', sans-serif;
 	margin: 0;
+	color: white;
   	text-align: center;
+  	height: 100%;
 }
 
-.jumbotron-image {
-	width: 100%;
-	/*filter: brightness(0.7);*/
-}
+
 
 button {
-	font-family: sans-serif;
+	font-family: 'Rokkitt', sans-serif;
+	border-radius: 12px;
+	font-size: 20pt;
+
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+.jumbotron {
+	background-image: url("/worldMap.jpg");
+	background-color: black;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100%;
+	min-height:100vh;	/*filter: brightness(0.7);*/
+}
+
+.jumbotron-text {
+	padding-top: 50vh;
+	font-size: 32pt;
 }
 
 .map {
 	height: 500px;
-
 }
