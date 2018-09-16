@@ -9,5 +9,4 @@ import {
 //block runs on start of server
 Meteor.startup(() => {
   setupApi();
-
 });
