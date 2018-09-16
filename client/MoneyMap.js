@@ -34,7 +34,7 @@ export default class MoneyMap extends React.Component {
 	render() {
 		return (
 			<MapWithAMarker
-				googleMapURL={"https://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize?key=" + MAPS_API_KEY}
+				googleMapURL={"https://maps.googleapis.com/maps/api/js?key=" + MAPS_API_KEY}
 				loadingElement={<div style={{ height: `100%` }} />}
 				containerElement={<div style={{ height: `400px` }} />}
 				mapElement={<div style={{ height: `100%` }} />}
